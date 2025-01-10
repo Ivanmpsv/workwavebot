@@ -22,7 +22,7 @@ func StartBot(bot *tgbotapi.BotAPI) {
 		if update.Message != nil {
 			// Приветствие пользователя при команде /start
 			if update.Message.Text == "/start" {
-				msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Здравствуйте, укажите клиента, чтобы рассчитать вашу премию [тест версия, только альфа и X5]")
+				msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Локтар огар! Напишите имя клиента чтобы рассчитать вашу премию [тест версия, только альфа и X5]")
 				bot.Send(msg)
 			} else if bonushr.CheckNameCustomer(update.Message.Text) == "alfa" {
 				// Если название клиента найдено, ожидаем сумму от пользователя
