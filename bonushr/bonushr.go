@@ -29,16 +29,16 @@ func CheckNameCustomer(messageText string) string {
 	return ""
 }
 
-func CountBonusAlfa(bonusText string) float64 {
-	bonus, _ := strconv.ParseFloat(bonusText, 64)
+func CountBonusAlfa(salary string) float64 {
+	bonus, _ := strconv.ParseFloat(salary, 64)
 
 	bonus = bonus * 12 * 0.12 * 0.3
 
 	return bonus
 }
 
-func countBonusX5(bonusText string) float64 {
-	bonus, _ := strconv.ParseFloat(bonusText, 64)
+func CountBonusX5(salary string) float64 {
+	bonus, _ := strconv.ParseFloat(salary, 64)
 
 	bonus = bonus * 12 * 0.18 * 0.7 * 0.3
 
