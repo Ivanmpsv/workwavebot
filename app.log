@@ -1,0 +1,24 @@
+2025-01-17 19:25:18,572 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.103:5000
+2025-01-17 19:25:18,572 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-17 19:26:19,552 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.103:5000
+2025-01-17 19:26:19,552 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-17 19:28:32,907 - INFO - 127.0.0.1 - - [17/Jan/2025 19:28:32] "[31m[1mPOST /get_all_clients HTTP/1.1[0m" 405 -
+2025-01-17 19:31:06,912 - INFO - 127.0.0.1 - - [17/Jan/2025 19:31:06] "[31m[1mPOST /get_all_clients HTTP/1.1[0m" 405 -
+2025-01-18 00:38:01,024 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.102:5000
+2025-01-18 00:38:01,025 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-18 00:41:04,153 - INFO - 127.0.0.1 - - [18/Jan/2025 00:41:04] "[35m[1mPOST /add_client HTTP/1.1[0m" 201 -
+2025-01-18 00:47:55,093 - ERROR - Client 'Альфа' already exists: UNIQUE constraint failed: clients.name
+2025-01-18 00:47:55,094 - INFO - 127.0.0.1 - - [18/Jan/2025 00:47:55] "[31m[1mPOST /add_client HTTP/1.1[0m" 409 -
+2025-01-18 00:56:19,174 - INFO - 127.0.0.1 - - [18/Jan/2025 00:56:19] "[35m[1mPOST /add_client HTTP/1.1[0m" 201 -
+2025-01-18 00:58:25,324 - ERROR - Client 'Абоба-банк' already exists: UNIQUE constraint failed: clients.name
+2025-01-18 00:58:25,325 - INFO - 127.0.0.1 - - [18/Jan/2025 00:58:25] "[31m[1mPOST /add_client HTTP/1.1[0m" 409 -
+2025-01-18 00:59:51,334 - INFO - 127.0.0.1 - - [18/Jan/2025 00:59:51] "[35m[1mPOST /add_client HTTP/1.1[0m" 201 -
