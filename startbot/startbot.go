@@ -48,32 +48,11 @@ func handleMessage(bot *tgbotapi.BotAPI, message *tgbotapi.Message) {
 		// в разработке
 	}
 
-	switch {
-	case message.Text == "/new":
-		sendMessage(bot, chatID, "Добавить, удалить или обновить (формулу) клиента: отправьте 1 2 3 соответственно "+
-			"/n"+"Посмотреть всех клиентов нажмите 4")
-		userStates[chatID] = "1 2 3"
-
-	case userState == "1 2 3" && message.Text == "1":
-		sendMessage(bot, chatID, "Напишите имя клиента запятая пробел salary и формула расчётов \n"+
-			"Пример: Альфа, payment * 12...")
-		userStates[chatID] = "wait new client"
-
-	case userStates[chatID] == "wait new client":
-		handlePost(bot, chatID, message.Text)
-
-	case userState == "1 2 3" && message.Text == "2":
-		sendMessage(bot, chatID, "Обновить формулу клиента в разработке")
-
-	case userState == "1 2 3" && message.Text == "3":
-		sendMessage(bot, chatID, "Удалить клиента в разработке")
-
-	case message.Text == "4":
-		sendMessage(bot, chatID, "Список всех клиентов: ")
-	}
+	actionClients(bot, message)
 
 }
 
+// кейсы по созданию/обновлению клиентов
 func actionClients(bot *tgbotapi.BotAPI, message *tgbotapi.Message) {
 	chatID := message.Chat.ID
 	userState := userStates[chatID]
@@ -81,7 +60,7 @@ func actionClients(bot *tgbotapi.BotAPI, message *tgbotapi.Message) {
 	switch {
 	case message.Text == "/new":
 		sendMessage(bot, chatID, "Добавить, удалить или обновить (формулу) клиента: отправьте 1 2 3 соответственно "+
-			"/n"+"Посмотреть всех клиентов нажмите 4")
+			"\n"+"Посмотреть всех клиентов нажмите 4")
 		userStates[chatID] = "1 2 3"
 
 	case userState == "1 2 3" && message.Text == "1":
@@ -96,11 +75,34 @@ func actionClients(bot *tgbotapi.BotAPI, message *tgbotapi.Message) {
 		sendMessage(bot, chatID, "Обновить формулу клиента в разработке")
 
 	case userState == "1 2 3" && message.Text == "3":
-		sendMessage(bot, chatID, "Удалить клиента в разработке")
+		sendMessage(bot, chatID, "напишите имя клиента для удаления")
+		userStates[chatID] = "wait client to delete"
+
+	case userStates[chatID] == "wait client to delete":
+		handleDelete(bot, chatID, message.Text)
 
 	case message.Text == "4":
-		sendMessage(bot, chatID, "Список всех клиентов: ")
+		handleGet(bot, chatID)
 	}
+}
+
+func handleGet(bot *tgbotapi.BotAPI, chatID int64) {
+	clients, err := server.GetAllClients() // Получаем массив строк
+	if err != nil {
+		fmt.Println("ошибка на стадии handleGet")
+	}
+
+	if len(clients) == 0 {
+		// Если клиентов нет, отправляем сообщение об этом
+		msg := tgbotapi.NewMessage(chatID, "Клиенты отсутствуют.")
+		bot.Send(msg)
+		return
+	}
+
+	// Преобразуем массив строк в одну строку с переносами строки между элементами
+	clientsInstring := strings.Join(clients, "\n")
+
+	sendMessage(bot, chatID, clientsInstring)
 }
 
 func handlePost(bot *tgbotapi.BotAPI, chatID int64, userInput string) {
@@ -120,6 +122,12 @@ func handlePost(bot *tgbotapi.BotAPI, chatID int64, userInput string) {
 	}
 
 	sendMessage(bot, chatID, fmt.Sprintf("Клиент %s успешно добавлен!", cl))
+}
+
+func handleDelete(bot *tgbotapi.BotAPI, chatID int64, nameClient string) {
+
+	server.Delete(nameClient)
+	sendMessage(bot, chatID, fmt.Sprintf("Клиент %s удалён", nameClient))
 }
 
 // ввод клиента
