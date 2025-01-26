@@ -59,20 +59,28 @@ func actionClients(bot *tgbotapi.BotAPI, message *tgbotapi.Message) {
 
 	switch {
 	case message.Text == "/new":
-		sendMessage(bot, chatID, "Добавить, удалить или обновить (формулу) клиента: отправьте 1 2 3 соответственно "+
+		sendMessage(bot, chatID, "Добавить, обновить (формулу), удалить клиента: отправьте 1 2 3 соответственно "+
 			"\n"+"Посмотреть всех клиентов нажмите 4")
 		userStates[chatID] = "1 2 3"
 
 	case userState == "1 2 3" && message.Text == "1":
-		sendMessage(bot, chatID, "Напишите имя клиента запятая пробел salary и формула расчётов \n"+
+		sendMessage(bot, chatID, "Напишите: имя клиента запятая пробел salary и формула расчётов \n"+
 			"Пример: Альфа, payment * 12...")
 		userStates[chatID] = "wait new client"
 
 	case userStates[chatID] == "wait new client":
 		handlePost(bot, chatID, message.Text)
+		userStates[chatID] = "1 2 3"
 
 	case userState == "1 2 3" && message.Text == "2":
-		sendMessage(bot, chatID, "Обновить формулу клиента в разработке")
+		sendMessage(bot, chatID, "Чтобы обновить формулу уже существуюшего клиента напишите: "+
+			"имя клиента запятая пробел salary и формула расчётов \n"+
+			"Пример: Альфа, payment * 12...")
+		userStates[chatID] = "wait new formula"
+
+	case userStates[chatID] == "wait new formula":
+		handlePut(bot, chatID, message.Text)
+		userStates[chatID] = "1 2 3"
 
 	case userState == "1 2 3" && message.Text == "3":
 		sendMessage(bot, chatID, "напишите имя клиента для удаления")
@@ -80,9 +88,12 @@ func actionClients(bot *tgbotapi.BotAPI, message *tgbotapi.Message) {
 
 	case userStates[chatID] == "wait client to delete":
 		handleDelete(bot, chatID, message.Text)
+		userStates[chatID] = "1 2 3"
 
 	case message.Text == "4":
 		handleGet(bot, chatID)
+		userStates[chatID] = "1 2 3"
+
 	}
 }
 
@@ -115,7 +126,7 @@ func handlePost(bot *tgbotapi.BotAPI, chatID int64, userInput string) {
 	clientName := strings.TrimSpace(parts[0])
 	formula := strings.TrimSpace(parts[1])
 
-	cl, err := server.Post(clientName, formula)
+	cl, err := server.Post(&clientName, &formula)
 	if err != nil {
 		sendMessage(bot, chatID, fmt.Sprintf("Ошибка при добавлении клиента: %v", err))
 		return
@@ -128,6 +139,26 @@ func handleDelete(bot *tgbotapi.BotAPI, chatID int64, nameClient string) {
 
 	server.Delete(nameClient)
 	sendMessage(bot, chatID, fmt.Sprintf("Клиент %s удалён", nameClient))
+}
+
+func handlePut(bot *tgbotapi.BotAPI, chatID int64, updateFormula string) {
+	parts := strings.SplitN(updateFormula, ",", 2)
+	if len(parts) != 2 {
+		sendMessage(bot, chatID, "Ошибка ввода. Пожалуйста, используйте формат: 'Клиент, формула'")
+		return
+	}
+
+	clientName := strings.TrimSpace(parts[0])
+	Newformula := strings.TrimSpace(parts[1])
+
+	err := server.Put(clientName, Newformula)
+	if err != nil {
+		sendMessage(bot, chatID, "Что-то пошло не так")
+		return
+	}
+
+	sendMessage(bot, chatID, fmt.Sprintf("Формула килента %s обнавлена", clientName))
+
 }
 
 // ввод клиента

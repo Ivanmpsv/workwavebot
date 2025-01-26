@@ -36,6 +36,7 @@ func Get() ([]Client, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	defer resp.Body.Close() // закрываем тело ответа после работы с ним
 
 	if resp.StatusCode != 200 {
@@ -54,7 +55,7 @@ func Get() ([]Client, error) {
 		return nil, fmt.Errorf("error decoding JSON: %v", err)
 	}
 
-	// преобразуем массив массивов в массив структур Client
+	// преобразуем lдвумерный массив в массив структур Client
 	clients := make([]Client, len(out.Clients))
 	for i, clientData := range out.Clients {
 		if len(clientData) >= 3 {
@@ -74,11 +75,11 @@ func Get() ([]Client, error) {
 	return clients, nil
 }
 
-func Post(name string, formula string) (*Client, error) {
+func Post(name, formula *string) (*Client, error) {
 	// Создаём клиента
 	client := Client{
-		Name:    name,
-		Formula: formula,
+		Name:    *name,
+		Formula: *formula,
 	}
 
 	// Создаём JSON-данные
@@ -100,9 +101,6 @@ func Post(name string, formula string) (*Client, error) {
 	defer resp.Body.Close() // закрываем тело ответа после работы с ним
 
 	// Проверяем статус-код ответа
-	if resp.StatusCode == 409 {
-		return nil, fmt.Errorf("error 409: client already exists")
-	}
 	if resp.StatusCode != 201 {
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
@@ -134,12 +132,10 @@ func Delete(name string) error {
 	if err != nil {
 		return fmt.Errorf("error sending DELETE request: %v", err)
 	}
-	defer resp.Body.Close()
 
-	if resp.StatusCode == http.StatusNotFound {
-		return fmt.Errorf("client '%s' not found", name)
-	}
-	if resp.StatusCode != http.StatusOK {
+	defer resp.Body.Close() // закрываем тело ответа после работы с ним
+
+	if resp.StatusCode != 200 {
 		return fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
@@ -148,11 +144,46 @@ func Delete(name string) error {
 		return fmt.Errorf("error decoding DELETE response: %v", err)
 	}
 
-	fmt.Println(deleteResp.Message)
 	return nil
 }
 
-func Put() {
+func Put(name, formula string) error {
+	// записываем имя и формулу клиента для обновления (по аналогии с Post)
+	body := UpdateFormula{
+		Name:       name,
+		NewFormula: formula,
+	}
+
+	jsonBody, err := json.Marshal(body)
+	if err != nil {
+		return fmt.Errorf("error JSON: %v", err)
+	}
+
+	req, err := http.NewRequest("PUT", "http://localhost:5000/update_client_formula", bytes.NewBuffer(jsonBody))
+	if err != nil {
+		return fmt.Errorf("error PUT request: %v", err)
+	}
+
+	//в случае с запросом PUT через http.NewRequest нужно дополнительно указать, что мы передаём JSON
+	req.Header.Set("Content-Type", "application/json")
+
+	// HTTP-запрос с использованием встроенного HTTP-клиента, норм если не нужна кастомизация
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return fmt.Errorf("error resp: %v", err)
+	}
+
+	defer resp.Body.Close() // закрываем тело ответа после работы с ним
+
+	// проверяем статус код
+	if resp.StatusCode != 200 {
+		fmt.Printf("Status code: %d", resp.StatusCode)
+		return err
+	}
+
+	// заполнять структуру не нужно, т.к UpdateFormula нужна для передачи, а не хранения данных
+
+	return nil
 
 }
 

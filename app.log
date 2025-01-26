@@ -60,3 +60,81 @@
 2025-01-20 01:25:11,312 - INFO - [33mPress CTRL+C to quit[0m
 2025-01-20 01:25:15,859 - INFO - 127.0.0.1 - - [20/Jan/2025 01:25:15] "GET /get_all_clients HTTP/1.1" 200 -
 2025-01-20 01:31:22,397 - INFO - 127.0.0.1 - - [20/Jan/2025 01:31:22] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-24 00:03:13,524 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-01-24 00:03:13,525 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-24 00:03:37,254 - INFO - 127.0.0.1 - - [24/Jan/2025 00:03:37] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-24 00:39:25,535 - INFO - 127.0.0.1 - - [24/Jan/2025 00:39:25] "DELETE /delete_client/Альфа HTTP/1.1" 200 -
+2025-01-24 00:39:56,121 - INFO - 127.0.0.1 - - [24/Jan/2025 00:39:56] "[33mDELETE /delete_client/3 HTTP/1.1[0m" 404 -
+2025-01-24 00:40:09,875 - INFO - 127.0.0.1 - - [24/Jan/2025 00:40:09] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-24 00:40:58,377 - INFO - 127.0.0.1 - - [24/Jan/2025 00:40:58] "[35m[1mPOST /add_client HTTP/1.1[0m" 201 -
+2025-01-24 00:41:06,158 - INFO - 127.0.0.1 - - [24/Jan/2025 00:41:06] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-24 00:42:36,140 - ERROR - Client 'Альфа' already exists: UNIQUE constraint failed: clients.name
+2025-01-24 00:42:36,140 - INFO - 127.0.0.1 - - [24/Jan/2025 00:42:36] "[31m[1mPOST /add_client HTTP/1.1[0m" 409 -
+2025-01-24 00:42:43,628 - INFO - 127.0.0.1 - - [24/Jan/2025 00:42:43] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-24 00:43:23,439 - INFO - 127.0.0.1 - - [24/Jan/2025 00:43:23] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-24 00:43:47,240 - INFO - 127.0.0.1 - - [24/Jan/2025 00:43:47] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-24 23:51:23,727 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.102:5000
+2025-01-24 23:51:23,727 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-24 23:51:45,803 - INFO - 127.0.0.1 - - [24/Jan/2025 23:51:45] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-24 23:54:19,104 - INFO - 127.0.0.1 - - [24/Jan/2025 23:54:19] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-24 23:54:49,476 - INFO - 127.0.0.1 - - [24/Jan/2025 23:54:49] "[31m[1mPUT /update_client_formula HTTP/1.1[0m" 415 -
+2025-01-24 23:54:53,379 - INFO - 127.0.0.1 - - [24/Jan/2025 23:54:53] "[31m[1mPUT /update_client_formula HTTP/1.1[0m" 415 -
+2025-01-24 23:55:04,172 - INFO - 127.0.0.1 - - [24/Jan/2025 23:55:04] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-24 23:57:24,772 - INFO - 127.0.0.1 - - [24/Jan/2025 23:57:24] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-24 23:57:31,828 - INFO - 127.0.0.1 - - [24/Jan/2025 23:57:31] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-24 23:58:27,899 - INFO - 127.0.0.1 - - [24/Jan/2025 23:58:27] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-24 23:58:44,955 - INFO - 127.0.0.1 - - [24/Jan/2025 23:58:44] "[31m[1mPUT /update_client_formula HTTP/1.1[0m" 415 -
+2025-01-24 23:58:48,289 - INFO - 127.0.0.1 - - [24/Jan/2025 23:58:48] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-25 23:15:53,259 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.100:5000
+2025-01-25 23:15:53,260 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-25 23:16:09,200 - INFO - 127.0.0.1 - - [25/Jan/2025 23:16:09] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-25 23:16:26,127 - INFO - 127.0.0.1 - - [25/Jan/2025 23:16:26] "[31m[1mPUT /update_client_formula HTTP/1.1[0m" 415 -
+2025-01-25 23:16:29,276 - INFO - 127.0.0.1 - - [25/Jan/2025 23:16:29] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-25 23:33:06,572 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.100:5000
+2025-01-25 23:33:06,572 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-25 23:33:22,244 - INFO - 127.0.0.1 - - [25/Jan/2025 23:33:22] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-25 23:33:34,545 - INFO - 127.0.0.1 - - [25/Jan/2025 23:33:34] "[31m[1mPUT /update_client_formula HTTP/1.1[0m" 415 -
+2025-01-25 23:33:37,457 - INFO - 127.0.0.1 - - [25/Jan/2025 23:33:37] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-25 23:40:22,310 - INFO - 127.0.0.1 - - [25/Jan/2025 23:40:22] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-25 23:40:39,108 - INFO - 127.0.0.1 - - [25/Jan/2025 23:40:39] "[31m[1mPUT /update_client_formula HTTP/1.1[0m" 415 -
+2025-01-25 23:40:42,912 - INFO - 127.0.0.1 - - [25/Jan/2025 23:40:42] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-25 23:49:21,207 - INFO - 127.0.0.1 - - [25/Jan/2025 23:49:21] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-25 23:49:26,772 - INFO - 127.0.0.1 - - [25/Jan/2025 23:49:26] "[31m[1mPUT /update_client_formula HTTP/1.1[0m" 415 -
+2025-01-25 23:49:37,003 - INFO - 127.0.0.1 - - [25/Jan/2025 23:49:37] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-26 14:52:40,756 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.102:5000
+2025-01-26 14:52:40,758 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-26 14:53:00,091 - INFO - 127.0.0.1 - - [26/Jan/2025 14:53:00] "[33mPUT /update_client_formula HTTP/1.1[0m" 404 -
+2025-01-26 14:53:23,905 - INFO - 127.0.0.1 - - [26/Jan/2025 14:53:23] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-26 14:55:40,278 - INFO - 127.0.0.1 - - [26/Jan/2025 14:55:40] "[33mPUT /update_client_formula HTTP/1.1[0m" 404 -
+2025-01-26 14:57:49,243 - INFO - 127.0.0.1 - - [26/Jan/2025 14:57:49] "[33mPUT /update_client_formula HTTP/1.1[0m" 404 -
+2025-01-26 14:59:34,526 - INFO - 127.0.0.1 - - [26/Jan/2025 14:59:34] "PUT /update_client_formula HTTP/1.1" 200 -
+2025-01-26 14:59:34,534 - INFO - 127.0.0.1 - - [26/Jan/2025 14:59:34] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-26 15:05:44,373 - INFO - 127.0.0.1 - - [26/Jan/2025 15:05:44] "[31m[1mPUT /update_client_formula HTTP/1.1[0m" 415 -
+2025-01-26 15:05:44,378 - INFO - 127.0.0.1 - - [26/Jan/2025 15:05:44] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-26 15:14:26,336 - INFO - 127.0.0.1 - - [26/Jan/2025 15:14:26] "[31m[1mPUT /update_client_formula HTTP/1.1[0m" 415 -
+2025-01-26 15:14:26,341 - INFO - 127.0.0.1 - - [26/Jan/2025 15:14:26] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-26 15:23:39,442 - INFO - 127.0.0.1 - - [26/Jan/2025 15:23:39] "PUT /update_client_formula HTTP/1.1" 200 -
+2025-01-26 15:23:39,450 - INFO - 127.0.0.1 - - [26/Jan/2025 15:23:39] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-26 15:36:21,054 - INFO - 127.0.0.1 - - [26/Jan/2025 15:36:21] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-26 15:36:43,051 - INFO - 127.0.0.1 - - [26/Jan/2025 15:36:43] "PUT /update_client_formula HTTP/1.1" 200 -
+2025-01-26 15:36:45,157 - INFO - 127.0.0.1 - - [26/Jan/2025 15:36:45] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-26 20:55:27,880 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.102:5000
+2025-01-26 20:55:27,881 - INFO - [33mPress CTRL+C to quit[0m
