@@ -138,3 +138,49 @@
  * Running on http://127.0.0.1:5000
  * Running on http://192.168.0.102:5000
 2025-01-26 20:55:27,881 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-26 21:01:14,958 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.102:5000
+2025-01-26 21:01:14,959 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-26 21:02:19,081 - INFO - 127.0.0.1 - - [26/Jan/2025 21:02:19] "[35m[1mPOST /add_client HTTP/1.1[0m" 201 -
+2025-01-26 21:02:36,766 - INFO - 127.0.0.1 - - [26/Jan/2025 21:02:36] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-26 21:04:42,457 - INFO - 127.0.0.1 - - [26/Jan/2025 21:04:42] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-27 22:35:43,005 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.102:5000
+2025-01-27 22:35:43,005 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-27 22:36:00,534 - ERROR - Client 'альфа' not found in the database.
+2025-01-27 22:36:00,535 - INFO - 127.0.0.1 - - [27/Jan/2025 22:36:00] "[33mPOST /calculate_payment HTTP/1.1[0m" 404 -
+2025-01-27 22:36:00,537 - INFO - 127.0.0.1 - - [27/Jan/2025 22:36:00] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-27 22:38:32,150 - INFO - 127.0.0.1 - - [27/Jan/2025 22:38:32] "POST /calculate_payment HTTP/1.1" 200 -
+2025-01-27 22:39:23,992 - INFO - 127.0.0.1 - - [27/Jan/2025 22:39:23] "POST /calculate_payment HTTP/1.1" 200 -
+2025-01-27 22:39:23,994 - INFO - 127.0.0.1 - - [27/Jan/2025 22:39:23] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-27 22:40:27,141 - INFO - 127.0.0.1 - - [27/Jan/2025 22:40:27] "POST /calculate_payment HTTP/1.1" 200 -
+2025-01-27 22:40:49,457 - INFO - 127.0.0.1 - - [27/Jan/2025 22:40:49] "POST /calculate_payment HTTP/1.1" 200 -
+2025-01-27 22:40:49,459 - INFO - 127.0.0.1 - - [27/Jan/2025 22:40:49] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-27 22:42:19,242 - INFO - 127.0.0.1 - - [27/Jan/2025 22:42:19] "POST /calculate_payment HTTP/1.1" 200 -
+2025-01-27 22:42:43,286 - INFO - 127.0.0.1 - - [27/Jan/2025 22:42:43] "POST /calculate_payment HTTP/1.1" 200 -
+2025-01-27 22:42:43,289 - INFO - 127.0.0.1 - - [27/Jan/2025 22:42:43] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-28 22:26:54,061 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-01-28 22:26:54,062 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-28 22:27:10,323 - INFO - 127.0.0.1 - - [28/Jan/2025 22:27:10] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-28 22:27:26,335 - INFO - 127.0.0.1 - - [28/Jan/2025 22:27:26] "DELETE /delete_client/Wow HTTP/1.1" 200 -
+2025-01-28 22:27:54,657 - INFO - 127.0.0.1 - - [28/Jan/2025 22:27:54] "DELETE /delete_client/EEEE HTTP/1.1" 200 -
+2025-01-28 22:27:58,612 - INFO - 127.0.0.1 - - [28/Jan/2025 22:27:58] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-28 22:28:08,862 - INFO - 127.0.0.1 - - [28/Jan/2025 22:28:08] "DELETE /delete_client/Абв HTTP/1.1" 200 -
+2025-01-28 22:28:16,962 - INFO - 127.0.0.1 - - [28/Jan/2025 22:28:16] "DELETE /delete_client/Сбер HTTP/1.1" 200 -
+2025-01-28 22:28:22,832 - INFO - 127.0.0.1 - - [28/Jan/2025 22:28:22] "DELETE /delete_client/Fdfd HTTP/1.1" 200 -
+2025-01-28 22:28:28,671 - INFO - 127.0.0.1 - - [28/Jan/2025 22:28:28] "DELETE /delete_client/Dfdf HTTP/1.1" 200 -
+2025-01-28 22:28:31,496 - INFO - 127.0.0.1 - - [28/Jan/2025 22:28:31] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-28 22:29:13,954 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-01-28 22:29:13,954 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-28 22:33:03,011 - INFO - 127.0.0.1 - - [28/Jan/2025 22:33:03] "PUT /update_client_formula HTTP/1.1" 200 -
+2025-01-28 22:33:05,711 - INFO - 127.0.0.1 - - [28/Jan/2025 22:33:05] "GET /get_all_clients HTTP/1.1" 200 -

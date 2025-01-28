@@ -31,6 +31,11 @@ type UpdateFormula struct {
 	NewFormula string `json:"new_formula"`
 }
 
+type Calculate struct {
+	Client_name string  `json:"client_name"`
+	Payment     float64 `json:"payment"`
+}
+
 func Get() ([]Client, error) {
 	resp, err := http.Get("http://localhost:5000/get_all_clients") // отправляем HTTP-запрос с методом GET
 	if err != nil {
@@ -75,20 +80,14 @@ func Get() ([]Client, error) {
 	return clients, nil
 }
 
-func Post(name, formula *string) (*Client, error) {
+func PostAddClient(name, formula *string) (*Client, error) {
 	// Создаём клиента
 	client := Client{
 		Name:    *name,
 		Formula: *formula,
 	}
 
-	// Создаём JSON-данные
-	data := map[string]interface{}{
-		"name":    client.Name,
-		"formula": formula,
-	}
-
-	jsonData, err := json.Marshal(data)
+	jsonData, err := json.Marshal(client)
 	if err != nil {
 		return nil, fmt.Errorf("error marshalling JSON: %v", err)
 	}
@@ -118,6 +117,44 @@ func Post(name, formula *string) (*Client, error) {
 	}
 
 	return &client, nil
+}
+
+func PostCalculatePayment(name string, payment float64) (float64, error) {
+	cl := Calculate{
+		Client_name: name,
+		Payment:     payment,
+	}
+
+	//превращаем экземпляр структуры в json данные
+	jsonData, err := json.Marshal(cl)
+	if err != nil {
+		return 0, err
+	}
+
+	// Отправляем POST-запрос на подсчёт премии
+	resp, err := http.Post("http://localhost:5000/calculate_payment", "application/json", bytes.NewBuffer(jsonData))
+	if err != nil {
+		return 0, fmt.Errorf("не удалось отправить POST запрос: %v", err)
+	}
+
+	defer resp.Body.Close() // закрываем тело ответа после работы с ним
+
+	// читаем ответ
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return 0, fmt.Errorf("не удалось прочитать ответ")
+	}
+
+	if resp.StatusCode != 200 {
+		return 0, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
+	}
+
+	err = json.Unmarshal(body, &cl)
+	if err != nil {
+		return 0, fmt.Errorf("unmarshal не успешно, не удалось заполнить структуру: %v", err)
+	}
+
+	return cl.Payment, nil
 }
 
 func Delete(name string) error {

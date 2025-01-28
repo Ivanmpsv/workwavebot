@@ -2,8 +2,8 @@ package startbot
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
-	"workwavebot/bonushr"
 	"workwavebot/server"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
@@ -38,14 +38,13 @@ func handleMessage(bot *tgbotapi.BotAPI, message *tgbotapi.Message) {
 
 	switch {
 	case message.Text == "/start" || message.Text == "старт бот" || message.Text == "бот проснись":
-		sendMessage(bot, chatID, "Локтар огар! Напишите имя клиента чтобы рассчитать вашу премию")
+		sendMessage(bot, chatID, "Локтар огар!"+
+			"Напишите имя клиента запятая и ЗП кандидата чтобы рассчитать премию рекрутера"+
+			"\n"+"Пример: Альфа, 300 000")
 		userStates[chatID] = "waiting_for_client"
 
 	case userState == "waiting_for_client":
-		// в разработке
-
-	case userState == "waiting_for_salary_alfa" || userState == "waiting_for_salary_x5":
-		// в разработке
+		BonusRecruiter(bot, chatID, message.Text)
 	}
 
 	actionClients(bot, message)
@@ -126,7 +125,7 @@ func handlePost(bot *tgbotapi.BotAPI, chatID int64, userInput string) {
 	clientName := strings.TrimSpace(parts[0])
 	formula := strings.TrimSpace(parts[1])
 
-	cl, err := server.Post(&clientName, &formula)
+	cl, err := server.PostAddClient(&clientName, &formula)
 	if err != nil {
 		sendMessage(bot, chatID, fmt.Sprintf("Ошибка при добавлении клиента: %v", err))
 		return
@@ -162,30 +161,30 @@ func handlePut(bot *tgbotapi.BotAPI, chatID int64, updateFormula string) {
 }
 
 // ввод клиента
-func handleClient(bot *tgbotapi.BotAPI, chatID int64, clientName string) {
-	client := bonushr.CheckNameCustomer(clientName)
-	if client == "alfa" || client == "x5" {
-		sendMessage(bot, chatID, "Введите месячную ЗП в гросс, на которую наняли кандидата:")
-		userStates[chatID] = "waiting_for_salary_" + client
-	} else {
-		sendMessage(bot, chatID, "Клиент не найден. Попробуйте снова.")
-	}
-}
-
-// handleSalary обрабатывает ввод зарплаты и считает бонус
-func handleSalary(bot *tgbotapi.BotAPI, chatID int64, salary, state string) {
-	var bonus float64
-
-	// TODO: добавить обработку ошибок
-	if state == "waiting_for_salary_alfa" {
-		bonus = bonushr.CountBonusAlfa(salary)
-	} else if state == "waiting_for_salary_x5" {
-		bonus = bonushr.CountBonusX5(salary)
+func BonusRecruiter(bot *tgbotapi.BotAPI, chatID int64, calculateSalary string) {
+	cs := strings.SplitN(calculateSalary, ",", 2)
+	if len(cs) != 2 {
+		sendMessage(bot, chatID, "Ошибка ввода. Пожалуйста, используйте формат: 'Клиент, формула'")
+		return
 	}
 
-	response := fmt.Sprintf("Ваш бонус составляет: %.2f гросс", bonus)
-	sendMessage(bot, chatID, response)
+	clientName := strings.TrimSpace(cs[0])
+	salary := strings.TrimSpace(cs[1])
 
-	// Сброс состояния
-	userStates[chatID] = "waiting_for_client"
+	salaryFloat, err := strconv.ParseFloat(salary, 64)
+	if err != nil {
+		sendMessage(bot, chatID, "Ошибка ввода. Попробуйте заново")
+		return
+	}
+
+	bonusFloat, err := server.PostCalculatePayment(clientName, salaryFloat)
+
+	if err != nil {
+		sendMessage(bot, chatID, "Не получилось рассчитать бонус")
+		return
+	}
+
+	bonusString := strconv.FormatFloat(bonusFloat, 'f', 2, 64)
+
+	sendMessage(bot, chatID, bonusString)
 }
