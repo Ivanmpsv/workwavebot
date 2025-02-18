@@ -9,34 +9,47 @@ import (
 	"net/http"
 )
 
-// структура-проводник-хранилище для компании-клиента
-type Client struct {
+// для общения с API, хранилище клиентов
+type client struct {
 	Name    string `json:"name"`
 	Formula string `json:"formula"`
 }
 
-// временная структура для обработки ответа от сервера
-type OutputClients struct {
+// структура с полем статуса и массивом клиентов
+type outputClients struct {
 	Status  string          `json:"status"`
 	Clients [][]interface{} `json:"clients"` // временный тип для декодирования двумерного массива
 }
 
-type DeleteClient struct {
+// для общения с API, удал
+type deleteClient struct {
 	Status  string `json:"status"`
 	Message string `json:"message"`
 }
 
-type UpdateFormula struct {
+// для общения с API, изменение формулы
+type updateFormula struct {
 	Name       string `json:"name"`
 	NewFormula string `json:"new_formula"`
 }
 
-type Calculate struct {
+// для общения с API, подсчёт формул
+type calculate struct {
 	Client_name string  `json:"client_name"`
 	Payment     float64 `json:"payment"`
 }
 
-func Get() ([]Client, error) {
+// для передачи id админа по API
+type admin struct {
+	ID int `json:"id"`
+}
+
+// для хранения всех админов
+type DBadmins struct {
+	ID []admin
+}
+
+func Get() ([]client, error) {
 	resp, err := http.Get("http://localhost:5000/get_all_clients") // отправляем HTTP-запрос с методом GET
 	if err != nil {
 		return nil, err
@@ -54,20 +67,20 @@ func Get() ([]Client, error) {
 	}
 
 	// декодируем временный формат данных
-	var out OutputClients
+	var out outputClients
 	err = json.Unmarshal(body, &out)
 	if err != nil {
 		return nil, fmt.Errorf("error decoding JSON: %v", err)
 	}
 
 	// преобразуем lдвумерный массив в массив структур Client
-	clients := make([]Client, len(out.Clients))
+	clients := make([]client, len(out.Clients))
 	for i, clientData := range out.Clients {
 		if len(clientData) >= 3 {
 			name, okName := clientData[1].(string)
 			formula, okFormula := clientData[2].(string)
 			if okName && okFormula {
-				clients[i] = Client{
+				clients[i] = client{
 					Name:    name,
 					Formula: formula,
 				}
@@ -80,9 +93,9 @@ func Get() ([]Client, error) {
 	return clients, nil
 }
 
-func PostAddClient(name, formula *string) (*Client, error) {
+func PostAddClient(name, formula *string) (*client, error) {
 	// Создаём клиента
-	client := Client{
+	client := client{
 		Name:    *name,
 		Formula: *formula,
 	}
@@ -120,7 +133,7 @@ func PostAddClient(name, formula *string) (*Client, error) {
 }
 
 func PostCalculatePayment(name string, payment float64) (float64, error) {
-	cl := Calculate{
+	cl := calculate{
 		Client_name: name,
 		Payment:     payment,
 	}
@@ -157,6 +170,45 @@ func PostCalculatePayment(name string, payment float64) (float64, error) {
 	return cl.Payment, nil
 }
 
+func PostAddAdmin(id *int) (*admin, error) {
+
+	ad := admin{
+		ID: *id,
+	}
+
+	data, err := json.Marshal(ad)
+	if err != nil {
+		return nil, fmt.Errorf("ошибка, не удалось json.Marshal %v", err)
+	}
+
+	resp, err := http.Post("http://localhost:5000/add_admin", "application/json", bytes.NewBuffer(data))
+
+	if err != nil {
+		return nil, fmt.Errorf("не удалось сделать Post запрос %v", err)
+	}
+
+	defer resp.Body.Close() // закрываем тело ответа после работы с ним
+
+	if resp.StatusCode != 201 {
+		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("не удалось прочитать тело ответа %v", err)
+	}
+
+	//заполняем структуру BDadmins
+	var dba DBadmins
+
+	err = json.Unmarshal(body, &dba)
+	if err != nil {
+		return nil, fmt.Errorf("не удалось json.Unmarshal %v", err)
+	}
+
+	return &ad, nil
+}
+
 func Delete(name string) error {
 	url := fmt.Sprintf("http://localhost:5000/delete_client/%s", name)
 
@@ -176,7 +228,7 @@ func Delete(name string) error {
 		return fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
-	var deleteResp DeleteClient
+	var deleteResp deleteClient
 	if err := json.NewDecoder(resp.Body).Decode(&deleteResp); err != nil {
 		return fmt.Errorf("error decoding DELETE response: %v", err)
 	}
@@ -186,7 +238,7 @@ func Delete(name string) error {
 
 func Put(name, formula string) error {
 	// записываем имя и формулу клиента для обновления (по аналогии с Post)
-	body := UpdateFormula{
+	body := updateFormula{
 		Name:       name,
 		NewFormula: formula,
 	}

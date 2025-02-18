@@ -184,3 +184,153 @@
 2025-01-28 22:29:13,954 - INFO - [33mPress CTRL+C to quit[0m
 2025-01-28 22:33:03,011 - INFO - 127.0.0.1 - - [28/Jan/2025 22:33:03] "PUT /update_client_formula HTTP/1.1" 200 -
 2025-01-28 22:33:05,711 - INFO - 127.0.0.1 - - [28/Jan/2025 22:33:05] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-28 22:36:20,218 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-01-28 22:36:20,218 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-28 23:09:06,654 - INFO - 127.0.0.1 - - [28/Jan/2025 23:09:06] "POST /calculate_payment HTTP/1.1" 200 -
+2025-01-29 23:27:08,878 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-01-29 23:27:08,878 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-29 23:27:25,642 - INFO - 127.0.0.1 - - [29/Jan/2025 23:27:25] "GET /get_all_clients HTTP/1.1" 200 -
+2025-01-29 23:28:49,675 - INFO - 127.0.0.1 - - [29/Jan/2025 23:28:49] "[35m[1mPOST /add_client HTTP/1.1[0m" 201 -
+2025-01-29 23:29:04,805 - INFO - 127.0.0.1 - - [29/Jan/2025 23:29:04] "GET /get_all_clients HTTP/1.1" 200 -
+2025-02-14 00:59:59,766 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.102:5000
+2025-02-14 00:59:59,767 - INFO - [33mPress CTRL+C to quit[0m
+2025-02-14 01:06:35,234 - ERROR - Exception on /add_admin [POST]
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Code\Go-code\workwavebot\restapi.py", line 62, in api_add_admin
+    int_id = int(id)
+TypeError: int() argument must be a string, a bytes-like object or a real number, not 'list'
+2025-02-14 01:06:35,274 - INFO - 127.0.0.1 - - [14/Feb/2025 01:06:35] "[35m[1mPOST /add_admin HTTP/1.1[0m" 500 -
+2025-02-16 01:28:47,871 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.100:5000
+2025-02-16 01:28:47,871 - INFO - [33mPress CTRL+C to quit[0m
+2025-02-16 01:30:12,812 - ERROR - Exception on /add_admin [POST]
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Code\Go-code\workwavebot\restapi.py", line 62, in api_add_admin
+    int_id = int(id)
+TypeError: int() argument must be a string, a bytes-like object or a real number, not 'list'
+2025-02-16 01:30:12,837 - INFO - 127.0.0.1 - - [16/Feb/2025 01:30:12] "[35m[1mPOST /add_admin HTTP/1.1[0m" 500 -
+2025-02-16 01:31:00,885 - ERROR - Exception on /add_admin [POST]
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Code\Go-code\workwavebot\restapi.py", line 62, in api_add_admin
+    int_id = int(id)
+TypeError: int() argument must be a string, a bytes-like object or a real number, not 'list'
+2025-02-16 01:31:00,886 - INFO - 127.0.0.1 - - [16/Feb/2025 01:31:00] "[35m[1mPOST /add_admin HTTP/1.1[0m" 500 -
+2025-02-16 01:34:10,658 - ERROR - Exception on /add_admin [POST]
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Code\Go-code\workwavebot\restapi.py", line 62, in api_add_admin
+    int_id = int(id)
+TypeError: int() argument must be a string, a bytes-like object or a real number, not 'list'
+2025-02-16 01:34:10,659 - INFO - 127.0.0.1 - - [16/Feb/2025 01:34:10] "[35m[1mPOST /add_admin HTTP/1.1[0m" 500 -
+2025-02-16 01:40:27,180 - ERROR - Exception on /add_admin [POST]
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Code\Go-code\workwavebot\restapi.py", line 62, in api_add_admin
+    int_id = int(id)
+TypeError: int() argument must be a string, a bytes-like object or a real number, not 'list'
+2025-02-16 01:40:27,181 - INFO - 127.0.0.1 - - [16/Feb/2025 01:40:27] "[35m[1mPOST /add_admin HTTP/1.1[0m" 500 -
+2025-02-16 01:44:19,294 - ERROR - Exception on /add_admin [POST]
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Code\Go-code\workwavebot\restapi.py", line 62, in api_add_admin
+    int_id = int(id)
+TypeError: int() argument must be a string, a bytes-like object or a real number, not 'list'
+2025-02-16 01:44:19,295 - INFO - 127.0.0.1 - - [16/Feb/2025 01:44:19] "[35m[1mPOST /add_admin HTTP/1.1[0m" 500 -
+2025-02-16 01:46:16,140 - ERROR - Exception on /add_admin [POST]
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Code\Go-code\workwavebot\restapi.py", line 62, in api_add_admin
+    int_id = int(id)
+TypeError: int() argument must be a string, a bytes-like object or a real number, not 'list'
+2025-02-16 01:46:16,141 - INFO - 127.0.0.1 - - [16/Feb/2025 01:46:16] "[35m[1mPOST /add_admin HTTP/1.1[0m" 500 -
+2025-02-16 01:48:35,437 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.100:5000
+2025-02-16 01:48:35,437 - INFO - [33mPress CTRL+C to quit[0m
+2025-02-16 01:48:50,285 - ERROR - Exception on /add_admin [POST]
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Lenovo\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Code\Go-code\workwavebot\restapi.py", line 62, in api_add_admin
+    int_id = int(id)
+TypeError: int() argument must be a string, a bytes-like object or a real number, not 'list'
+2025-02-16 01:48:50,287 - INFO - 127.0.0.1 - - [16/Feb/2025 01:48:50] "[35m[1mPOST /add_admin HTTP/1.1[0m" 500 -
+2025-02-16 01:51:43,595 - INFO - 127.0.0.1 - - [16/Feb/2025 01:51:43] "[35m[1mPOST /add_admin HTTP/1.1[0m" 201 -

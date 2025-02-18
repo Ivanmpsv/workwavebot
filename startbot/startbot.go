@@ -51,15 +51,15 @@ func handleMessage(bot *tgbotapi.BotAPI, message *tgbotapi.Message) {
 
 }
 
-// кейсы по созданию/обновлению клиентов
+// кейсы по созданию/обновлению клиентов и добавить админа
 func actionClients(bot *tgbotapi.BotAPI, message *tgbotapi.Message) {
 	chatID := message.Chat.ID
 	userState := userStates[chatID]
 
 	switch {
 	case message.Text == "/new":
-		sendMessage(bot, chatID, "Добавить, обновить (формулу), удалить клиента: отправьте 1 2 3 соответственно "+
-			"\n"+"Посмотреть всех клиентов нажмите 4")
+		sendMessage(bot, chatID, "Добавить, обновить формулу, удалить клиента: отправьте 1 2 3 соответственно "+
+			"\n"+"Посмотреть всех клиентов 4"+"\n"+"Добавить админа 5")
 		userStates[chatID] = "1 2 3"
 
 	case userState == "1 2 3" && message.Text == "1":
@@ -93,6 +93,13 @@ func actionClients(bot *tgbotapi.BotAPI, message *tgbotapi.Message) {
 		handleGet(bot, chatID)
 		userStates[chatID] = "1 2 3"
 
+	case message.Text == "5":
+		sendMessage(bot, chatID, "напишите id нового админа")
+		userStates[chatID] = "wait id admin"
+
+	case userState == "wait id admin":
+		handleAdmin(bot, chatID, message.Text)
+		userStates[chatID] = "1 2 3"
 	}
 }
 
@@ -125,6 +132,12 @@ func handlePost(bot *tgbotapi.BotAPI, chatID int64, userInput string) {
 	clientName := strings.TrimSpace(parts[0])
 	formula := strings.TrimSpace(parts[1])
 
+	//приводим к нижнему регистру и удаляем пробелы по бокам
+	clientName = strings.ToLower(clientName)
+	clientName = strings.TrimSpace(clientName)
+	formula = strings.ToLower(formula)
+	formula = strings.TrimSpace(clientName)
+
 	cl, err := server.PostAddClient(&clientName, &formula)
 	if err != nil {
 		sendMessage(bot, chatID, fmt.Sprintf("Ошибка при добавлении клиента: %v", err))
@@ -135,6 +148,9 @@ func handlePost(bot *tgbotapi.BotAPI, chatID int64, userInput string) {
 }
 
 func handleDelete(bot *tgbotapi.BotAPI, chatID int64, nameClient string) {
+	//приводим к нижнему регистру и удаляем пробелы побокам
+	nameClient = strings.ToLower(nameClient)
+	nameClient = strings.TrimSpace(nameClient)
 
 	server.Delete(nameClient)
 	sendMessage(bot, chatID, fmt.Sprintf("Клиент %s удалён", nameClient))
@@ -160,7 +176,26 @@ func handlePut(bot *tgbotapi.BotAPI, chatID int64, updateFormula string) {
 
 }
 
-// ввод клиента
+func handleAdmin(bot *tgbotapi.BotAPI, chatID int64, id string) {
+	// пока что пропускаю ошибку
+	num, _ := strconv.Atoi(id)
+
+	//хотел выводить список всех админов, но пока просто сообщение, что успешно добавлен
+	_, err := server.PostAddAdmin(&num)
+	if err != nil {
+		err = fmt.Errorf("произошла ошибка: %v", err)
+		strErr := err.Error()
+		sendMessage(bot, chatID, strErr)
+		return
+	}
+
+	id = fmt.Sprintf("администратор с id %s добавлен, будьте аккуратны, бот не умеет проверять id на корректность", id)
+
+	sendMessage(bot, chatID, id)
+
+}
+
+// ввод клиента, рассчёт премии
 func BonusRecruiter(bot *tgbotapi.BotAPI, chatID int64, calculateSalary string) {
 	cs := strings.SplitN(calculateSalary, ",", 2)
 	if len(cs) != 2 {
