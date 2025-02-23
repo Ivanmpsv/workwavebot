@@ -236,6 +236,30 @@ func Delete(name string) error {
 	return nil
 }
 
+// /remove_admin/<id>
+func DeleteAdmin(id string) error {
+	url := fmt.Sprintf("http://localhost:5000/remove_admin/%s", id)
+
+	// для DELETE не нужно body т.к удаление идёт по уникальному url
+	req, err := http.NewRequest("DELETE", url, nil)
+	if err != nil {
+		return fmt.Errorf("cant newRequest")
+	}
+
+	defer req.Body.Close() // закрываем тело ответа после выполнения
+
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return fmt.Errorf("error sending DELETE request: %v", err)
+	}
+
+	if resp.StatusCode != 200 {
+		return fmt.Errorf("error StatusCode: %v", resp.StatusCode)
+	}
+
+	return nil
+}
+
 func Put(name, formula string) error {
 	// записываем имя и формулу клиента для обновления (по аналогии с Post)
 	body := updateFormula{

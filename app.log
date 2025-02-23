@@ -334,3 +334,20 @@ Traceback (most recent call last):
 TypeError: int() argument must be a string, a bytes-like object or a real number, not 'list'
 2025-02-16 01:48:50,287 - INFO - 127.0.0.1 - - [16/Feb/2025 01:48:50] "[35m[1mPOST /add_admin HTTP/1.1[0m" 500 -
 2025-02-16 01:51:43,595 - INFO - 127.0.0.1 - - [16/Feb/2025 01:51:43] "[35m[1mPOST /add_admin HTTP/1.1[0m" 201 -
+2025-02-19 00:16:23,145 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-02-19 00:16:23,146 - INFO - [33mPress CTRL+C to quit[0m
+2025-02-19 00:17:38,274 - INFO - 127.0.0.1 - - [19/Feb/2025 00:17:38] "[35m[1mPOST /add_admin HTTP/1.1[0m" 201 -
+2025-02-19 00:25:48,007 - INFO - 127.0.0.1 - - [19/Feb/2025 00:25:48] "[35m[1mPOST /add_admin HTTP/1.1[0m" 201 -
+2025-02-19 00:26:09,401 - ERROR - Admin '5188030623' already exists: UNIQUE constraint failed: admins.id
+2025-02-19 00:26:09,402 - INFO - 127.0.0.1 - - [19/Feb/2025 00:26:09] "[31m[1mPOST /add_admin HTTP/1.1[0m" 409 -
+2025-02-19 00:26:57,115 - ERROR - Admin '5188030623' already exists: UNIQUE constraint failed: admins.id
+2025-02-19 00:26:57,115 - INFO - 127.0.0.1 - - [19/Feb/2025 00:26:57] "[31m[1mPOST /add_admin HTTP/1.1[0m" 409 -
+2025-02-23 22:29:29,916 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.101:5000
+2025-02-23 22:29:29,917 - INFO - [33mPress CTRL+C to quit[0m
+2025-02-23 22:34:09,314 - INFO - 127.0.0.1 - - [23/Feb/2025 22:34:09] "GET /get_all_clients HTTP/1.1" 200 -

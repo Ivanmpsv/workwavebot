@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+	"workwavebot/api"
 	"workwavebot/server"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
@@ -48,6 +49,7 @@ func handleMessage(bot *tgbotapi.BotAPI, message *tgbotapi.Message) {
 	}
 
 	actionClients(bot, message)
+	actionAdmins(bot, message)
 
 }
 
@@ -59,7 +61,7 @@ func actionClients(bot *tgbotapi.BotAPI, message *tgbotapi.Message) {
 	switch {
 	case message.Text == "/new":
 		sendMessage(bot, chatID, "Добавить, обновить формулу, удалить клиента: отправьте 1 2 3 соответственно "+
-			"\n"+"Посмотреть всех клиентов 4"+"\n"+"Добавить админа 5")
+			"\n"+"Посмотреть всех клиентов 4")
 		userStates[chatID] = "1 2 3"
 
 	case userState == "1 2 3" && message.Text == "1":
@@ -72,7 +74,7 @@ func actionClients(bot *tgbotapi.BotAPI, message *tgbotapi.Message) {
 		userStates[chatID] = "1 2 3"
 
 	case userState == "1 2 3" && message.Text == "2":
-		sendMessage(bot, chatID, "Чтобы обновить формулу уже существуюшего клиента напишите: "+
+		sendMessage(bot, chatID, "Чтобы обновить формулу уже существующего клиента напишите: "+
 			"имя клиента запятая пробел salary и формула расчётов \n"+
 			"Пример: Альфа, payment * 12...")
 		userStates[chatID] = "wait new formula"
@@ -92,15 +94,43 @@ func actionClients(bot *tgbotapi.BotAPI, message *tgbotapi.Message) {
 	case message.Text == "4":
 		handleGet(bot, chatID)
 		userStates[chatID] = "1 2 3"
-
-	case message.Text == "5":
-		sendMessage(bot, chatID, "напишите id нового админа")
-		userStates[chatID] = "wait id admin"
-
-	case userState == "wait id admin":
-		handleAdmin(bot, chatID, message.Text)
-		userStates[chatID] = "1 2 3"
 	}
+}
+
+// кейсы по добавлению/удалению админов
+func actionAdmins(bot *tgbotapi.BotAPI, message *tgbotapi.Message) {
+	chatID := message.Chat.ID
+	userState := userStates[chatID]
+
+	switch {
+	case message.Text == "/admin":
+		sendMessage(bot, chatID, "Панель управления админами. Нажмите:"+
+			"\n"+"1 - Чтобы добавить админа"+
+			"\n"+"2 - Чтобы удалить админа"+
+			"\n"+"3 - Чтобы посмотреть всех админов")
+		userStates[chatID] = "123"
+
+	case userState == "123" && message.Text == "1":
+		sendMessage(bot, chatID, "напишите id нового админа")
+		userStates[chatID] = "wait id to add"
+
+	case userState == "wait id to add":
+		handleAdmin(bot, chatID, message.Text)
+		userStates[chatID] = "123"
+
+	case userState == "123" && message.Text == "2":
+		sendMessage(bot, chatID, "напишите id админа для удаления")
+		userStates[chatID] = "wait id to dealete"
+
+	case userState == "wait id to deleate":
+		api.HandleDeleteAdmin(message.Text)
+		userStates[chatID] = "123"
+
+	case userState == "123" && message.Text == "3":
+		sendMessage(bot, chatID, "Посмотреть всех клиентов в разработке")
+		userStates[chatID] = "123"
+	}
+
 }
 
 func handleGet(bot *tgbotapi.BotAPI, chatID int64) {
@@ -148,7 +178,7 @@ func handlePost(bot *tgbotapi.BotAPI, chatID int64, userInput string) {
 }
 
 func handleDelete(bot *tgbotapi.BotAPI, chatID int64, nameClient string) {
-	//приводим к нижнему регистру и удаляем пробелы побокам
+	//приводим к нижнему регистру и удаляем пробелы по бокам
 	nameClient = strings.ToLower(nameClient)
 	nameClient = strings.TrimSpace(nameClient)
 
@@ -172,7 +202,7 @@ func handlePut(bot *tgbotapi.BotAPI, chatID int64, updateFormula string) {
 		return
 	}
 
-	sendMessage(bot, chatID, fmt.Sprintf("Формула килента %s обнавлена", clientName))
+	sendMessage(bot, chatID, fmt.Sprintf("Формула клиента %s обновлена", clientName))
 
 }
 
